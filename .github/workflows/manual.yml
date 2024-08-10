@@ -33,4 +33,8 @@ jobs:
     - name: check node version
       run: npm --version
     - name: log env
-      run: echo ${{ secrets.ACCOUNT_ADDRESS }}
+      env:
+        ACCOUNT_ADD: ${{ secrets.ACCOUNT_ADDRESS }}
+      run: |
+        echo ${{ secrets.ACCOUNT_ADDRESS }}
+        echo $ACCOUNT_ADD
