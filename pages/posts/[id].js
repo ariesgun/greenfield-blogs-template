@@ -6,6 +6,7 @@ import {
   listGreenfieldObjects,
   listGreenfieldObjectsById,
 } from "@/components/util";
+import moment from "moment";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,6 +31,24 @@ export default function Page({ post }) {
             Harnessing BNB Greenfield for Web Hosting: A New Era of
             Decentralized Storage
           </h1>
+
+          <div className="flex flex-row gap-x-2 my-4">
+            <svg
+              className="h-6 w-6 flex-shrink-0 text-gray-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <div className="text-gray-500">
+              {moment(post.data.time).format("D MMM, YYYY")}
+            </div>
+          </div>
 
           <div className="z-10 items-center justify-between text-base">
             {html.length > 0 &&
