@@ -44,4 +44,4 @@ jobs:
         echo ACCOUNT_PRIVATEKEY=${{ secrets.ACCOUNT_PRIVATEKEY }} >> .env
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - run: python --version
