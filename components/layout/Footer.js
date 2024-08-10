@@ -1,12 +1,12 @@
 const Footer = () => {
   return (
     <>
-      <footer class="bg-sky-950 mt-10">
-        <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 py-12">
-          <div class="sm:flex sm:items-center sm:justify-between">
-            <div class="flex justify-center text-green-400 sm:justify-start">
+      <footer className="bg-sky-950 mt-10">
+        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8 py-12">
+          <div className="sm:flex sm:items-center sm:justify-between">
+            <div className="flex justify-center text-green-400 sm:justify-start">
               <svg
-                class="h-8"
+                className="h-8"
                 viewBox="0 0 118 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ const Footer = () => {
               </svg>
             </div>
 
-            <p class="mt-4 text-center text-sm text-slate-200 lg:mt-0 lg:text-right">
+            <p className="mt-4 text-center text-sm text-slate-200 lg:mt-0 lg:text-right">
               Copyright &copy; 2024. All rights reserved.
             </p>
           </div>

@@ -3,6 +3,8 @@ const { GREEN_CHAIN_ID, GRPC_URL } = process.env;
 
 import { Client } from "@bnb-chain/greenfield-js-sdk";
 
+console.log("HH", GRPC_URL, GREEN_CHAIN_ID);
+
 export const client = Client.create(GRPC_URL, String(GREEN_CHAIN_ID));
 
 export const getSps = async () => {

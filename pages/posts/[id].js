@@ -1,14 +1,12 @@
 require("dotenv").config();
 
-import { client, selectSp } from "@/components/client";
+import { client } from "@/components/client";
 import Layout from "@/components/layout/Layout";
 import {
   listGreenfieldObjects,
   listGreenfieldObjectsById,
-  retry,
 } from "@/components/util";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,9 +24,14 @@ export default function Page({ post }) {
       <Layout>
         <div
           id="content"
-          className={`flex min-h-screen flex-col items-center justify-between p-16 items-center ${inter.className}`}
+          className={`flex min-h-screen flex-col items-center justify-between p-16 w-full max-w-3xl mx-auto items-center ${inter.className}`}
         >
-          <div className="z-10 max-w-3xl w-full items-center justify-between text-base">
+          <h1>
+            Harnessing BNB Greenfield for Web Hosting: A New Era of
+            Decentralized Storage
+          </h1>
+
+          <div className="z-10 items-center justify-between text-base">
             {html.length > 0 &&
               html.map((ele_html, idx) => (
                 <div

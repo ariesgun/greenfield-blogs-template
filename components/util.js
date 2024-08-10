@@ -1,9 +1,8 @@
 import { client, selectSp } from "./client";
 
-export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const randInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 export const listGreenfieldObjects = async ({ bucketName, retries = 5 }) => {
   console.log("BucketName", bucketName);
