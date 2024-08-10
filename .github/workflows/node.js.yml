@@ -26,6 +26,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo GRPC_URL=https://gnfd-testnet-fullnode-tendermint-ap.bnbchain.org >> .env
+        echo GREENFIELD_RPC_URL=https://gnfd-testnet-fullnode-tendermint-ap.bnbchain.org >> .env
+        echo GREEN_CHAIN_ID=5600 >> .env
+        echo BSC_RPC_URL=https://data-seed-prebsc-1-s1.binance.org:8545 >> .env
+        echo BSC_CHAIN_ID=97 >> .env
+        echo ACCOUNT_ADDRESS=${{ secrets.ACCOUNT_ADDRESS }} >> .env
+        echo ACCOUNT_PRIVATEKEY=${{ secrets.ACCOUNT_PRIVATEKEY }} >> .env
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
