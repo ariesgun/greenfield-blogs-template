@@ -13,24 +13,22 @@ const inter = Inter({ subsets: ["latin"] });
 
 const edjsHTML = require("editorjs-html");
 
-const { ACCOUNT_ADDRESS, ACCOUNT_PRIVATEKEY } = process.env;
+const { ACCOUNT_ADDRESS, ACCOUNT_PRIVATEKEY, BUCKET_NAME } = process.env;
 
 export default function Page({ post }) {
   console.log("Post", post);
   const edjsParser = edjsHTML();
-  const html = edjsParser.parse(post.data);
-  console.log(html);
+  const html = edjsParser.parse(post.data.payload);
+  console.log("Parsed HTML", html);
+
   return (
     <>
       <Layout>
         <div
           id="content"
-          className={`flex min-h-screen flex-col items-center justify-between p-16 w-full max-w-3xl mx-auto items-center ${inter.className}`}
+          className={`flex min-h-screen flex-col items-center p-16 w-full max-w-4xl mx-auto items-center ${inter.className}`}
         >
-          <h1>
-            Harnessing BNB Greenfield for Web Hosting: A New Era of
-            Decentralized Storage
-          </h1>
+          <h1>{post.data.title}</h1>
 
           <div className="flex flex-row gap-x-2 my-4">
             <svg
@@ -46,7 +44,7 @@ export default function Page({ post }) {
               />
             </svg>
             <div className="text-gray-500">
-              {moment(post.data.time).format("D MMM, YYYY")}
+              {moment(post.data.payload.time).format("D MMM, YYYY")}
             </div>
           </div>
 
@@ -72,7 +70,7 @@ export async function getStaticPaths() {
   let objects = [];
   try {
     objects = await listGreenfieldObjects({
-      bucketName: "helllo-world-test-xeo",
+      bucketName: BUCKET_NAME,
     });
   } catch (e) {
     console.log("Fail to list objects: ", e);
@@ -117,6 +115,7 @@ export async function getStaticProps({ params }) {
     return { props: { post: { id: params.id, data: payload } } };
   } catch (e) {
     console.log("Fail to list objects by id: ", e);
+    throw e;
   }
 
   // Pass post data to the page via props

@@ -1,7 +1,8 @@
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 
-const BlogCard = ({ title, description, datePost }) => {
+const BlogCard = ({ title, description, postId, datePost }) => {
   return (
     <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
       <Image
@@ -15,9 +16,9 @@ const BlogCard = ({ title, description, datePost }) => {
           {moment(datePost).format("Do MMM YYYY")}
         </div>
 
-        <a href="#">
+        <Link href={"/posts/" + postId}>
           <h3 className="mt-0.5 text-lg text-gray-900">{title}</h3>
-        </a>
+        </Link>
 
         <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
           {description}

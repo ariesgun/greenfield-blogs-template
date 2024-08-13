@@ -8,7 +8,7 @@ import { listGreenfieldObjects } from "@/components/util";
 
 import { client } from "@/components/client";
 
-const { ACCOUNT_ADDRESS, ACCOUNT_PRIVATEKEY } = process.env;
+const { ACCOUNT_ADDRESS, ACCOUNT_PRIVATEKEY, BUCKET_NAME } = process.env;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +23,10 @@ export default function Home({ posts }) {
             posts.map((post, idx) => (
               <BlogCard
                 key={idx}
-                title={"Title 1"}
-                description={post.blocks[0].data.text}
-                datePost={post.time}
+                title={post.title}
+                description={post.payload.blocks[0].data.text}
+                datePost={post.payload.time}
+                postId={post.postId}
               />
             ))}
         </div>
@@ -39,38 +40,41 @@ export async function getStaticProps() {
   let paths = [];
   try {
     objects = await listGreenfieldObjects({
-      bucketName: "helllo-world-test-xeo",
+      bucketName: BUCKET_NAME,
     });
   } catch (e) {
     console.log("Fail to list objects: ", e);
   }
 
-  console.log("obj", objects);
-
   // Get the paths we want to pre-render based on posts
-  paths = await Promise.all(
-    objects.map(async (post) => {
-      const objectInfo = post.ObjectInfo;
-      console.log("AA", objectInfo);
+  try {
+    paths = await Promise.all(
+      objects.map(async (post) => {
+        const objectInfo = post.ObjectInfo;
+        console.log("AA", objectInfo);
 
-      const downloadFileTx = await client.object.getObject(
-        {
-          bucketName: objectInfo.BucketName,
-          objectName: objectInfo.ObjectName,
-        },
-        {
-          type: "ECDSA",
-          privateKey: ACCOUNT_PRIVATEKEY,
-        }
-      );
+        const downloadFileTx = await client.object.getObject(
+          {
+            bucketName: objectInfo.BucketName,
+            objectName: objectInfo.ObjectName,
+          },
+          {
+            type: "ECDSA",
+            privateKey: ACCOUNT_PRIVATEKEY,
+          }
+        );
 
-      console.log("Download", downloadFileTx);
-      const payload = JSON.parse(await downloadFileTx.body.text());
-      console.log("JSON", payload.blocks[0].data);
+        console.log("Download", downloadFileTx);
+        const payload = JSON.parse(await downloadFileTx.body.text());
+        payload["postId"] = objectInfo.Id;
+        console.log("JSON", payload);
 
-      return payload;
-    })
-  );
+        return payload;
+      })
+    );
+  } catch (err) {
+    console.log("Error download object ", err);
+  }
 
   console.log("Paths", paths);
 
