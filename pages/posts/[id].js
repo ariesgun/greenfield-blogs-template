@@ -26,7 +26,7 @@ export default function Page({ post }) {
       <Layout>
         <div
           id="content"
-          className={`flex min-h-screen flex-col items-center p-16 w-full max-w-4xl mx-auto items-center ${inter.className}`}
+          className={`flex min-h-screen flex-col items-center p-16 w-full max-w-4xl mx-auto ${inter.className}`}
         >
           <h1>{post.data.title}</h1>
 
@@ -48,7 +48,7 @@ export default function Page({ post }) {
             </div>
           </div>
 
-          <div className="z-10 items-center justify-between text-base">
+          <div className="z-10 justify-between text-base items-start w-full">
             {html.length > 0 &&
               html.map((ele_html, idx) => (
                 <div

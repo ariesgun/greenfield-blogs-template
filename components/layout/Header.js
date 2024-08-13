@@ -11,11 +11,14 @@ const Header = () => {
             </div>
 
             <div className="flex flex-row gap-8 mx-auto">
-              <Link href="/" className="text-xl font-semibold text-slate-200">
+              <Link
+                href="/index.html"
+                className="text-xl font-semibold text-slate-200"
+              >
                 Home
               </Link>
               <Link
-                href="/about"
+                href="/about.html"
                 className="text-xl font-semibold text-slate-200"
               >
                 About

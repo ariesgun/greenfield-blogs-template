@@ -16,7 +16,7 @@ const BlogCard = ({ title, description, postId, datePost }) => {
           {moment(datePost).format("Do MMM YYYY")}
         </div>
 
-        <Link href={"/posts/" + postId}>
+        <Link href={"/posts/" + postId + ".html"}>
           <h3 className="mt-0.5 text-lg text-gray-900">{title}</h3>
         </Link>
 

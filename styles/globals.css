@@ -147,3 +147,32 @@ a {
   margin-bottom: 1.25rem;
   color: rgb(17 24 39);
 }
+
+#content blockquote {
+  background-color: rgb(209 213 219);
+  border-style: solid;
+  border-inline-start-width: 2px;
+  border-color: rgb(209 213 219);
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: rgb(17 24 39);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
+  padding-left: 1.1rem;
+}
+
+#content pre {
+  background-color: rgb(31 41 55);
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: rgb(245, 245, 245);
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  text-align: left;
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
+  padding-left: 1rem;
+}
