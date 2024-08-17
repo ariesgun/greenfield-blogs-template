@@ -55,7 +55,6 @@ async function createBucketIfNotPresent() {
     let bucketObj = null;
     try {
       bucketObj = await client.bucket.headBucket("gnfd-press-" + BUCKET_NAME);
-      //   console.log(bucketObj);
     } catch (error) {
       if (error.status !== 404) {
         bucketObj;
@@ -249,7 +248,6 @@ async function listFilesAndUpload(directory, parentPath = "") {
   // if (err) {
   //   return console.error(`Error reading directory: ${err.message}`);
   // }
-  console.log("listing files");
   await createBucketIfNotPresent();
   const files = fs.readdirSync(directory);
 

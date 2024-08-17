@@ -15,7 +15,7 @@ const _getPublicEnv = (prefix) => {
 const nextConfig = {
   reactStrictMode: true,
   output: "export",
-  basePath: "/view/gnfd-press-" + process.env.BUCKET_NAME,
+  // basePath: "/view/gnfd-press-" + process.env.BUCKET_NAME,
   publicRuntimeConfig: {
     ..._getPublicEnv("NEXT_PUBLIC_"),
   },

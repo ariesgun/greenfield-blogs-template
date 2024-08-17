@@ -16,7 +16,6 @@ const edjsHTML = require("editorjs-html");
 const { ACCOUNT_ADDRESS, ACCOUNT_PRIVATEKEY, BUCKET_NAME } = process.env;
 
 export default function Page({ post }) {
-  console.log("Post", post);
   const edjsParser = edjsHTML();
   const html = edjsParser.parse(post.data.payload);
   console.log("Parsed HTML", html);
@@ -77,7 +76,11 @@ export async function getStaticPaths() {
   }
 
   // Get the paths we want to pre-render based on posts
-  const paths = objects.map((post) => ({
+  const filteredObjects = objects.filter(
+    (post) => post.ObjectInfo.ObjectName !== ".info"
+  );
+  console.log("Filtered", filteredObjects);
+  const paths = filteredObjects.map((post) => ({
     params: { id: post.ObjectInfo.Id.toString() },
   }));
 
@@ -94,7 +97,6 @@ export async function getStaticProps({ params }) {
   let objectInfo;
   try {
     objectInfo = await listGreenfieldObjectsById({ params });
-    console.log("Object ", objectInfo);
 
     const downloadFileTx = await client.object.getObject(
       {
@@ -107,14 +109,12 @@ export async function getStaticProps({ params }) {
       }
     );
 
-    console.log("Download", downloadFileTx);
     const payload = JSON.parse(await downloadFileTx.body.text());
 
     // const json = await response.json();
-    console.log("JSON", payload);
     return { props: { post: { id: params.id, data: payload } } };
   } catch (e) {
-    console.log("Fail to list objects by id: ", e);
+    console.error("Fail to list objects by id: ", e);
     throw e;
   }
 

@@ -17,7 +17,6 @@ export const listGreenfieldObjects = async ({ bucketName, retries = 5 }) => {
       });
 
       if (res.code === 0) {
-        console.log("Ressss", res);
         return res.body.GfSpListObjectsByBucketNameResponse.Objects;
       } else {
         throw new Error("Error");
@@ -46,7 +45,6 @@ export const listGreenfieldObjectsById = async ({ params, retries = 5 }) => {
       });
 
       if (listObjectTx.code === 0) {
-        console.log("Ressss", listObjectTx);
         return listObjectTx.body.GfSpListObjectsByIDsResponse.ObjectEntry[0]
           .Value.ObjectInfo;
       } else {

@@ -36,22 +36,24 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  let objects = [];
+  let filteredObjects = [];
   let paths = [];
   try {
-    objects = await listGreenfieldObjects({
+    const objects = await listGreenfieldObjects({
       bucketName: BUCKET_NAME,
     });
+    filteredObjects = objects.filter(
+      (post) => post.ObjectInfo.ObjectName !== ".info"
+    );
   } catch (e) {
-    console.log("Fail to list objects: ", e);
+    console.error("Fail to list objects: ", e);
   }
 
   // Get the paths we want to pre-render based on posts
   try {
     paths = await Promise.all(
-      objects.map(async (post) => {
+      filteredObjects.map(async (post) => {
         const objectInfo = post.ObjectInfo;
-        console.log("AA", objectInfo);
 
         const downloadFileTx = await client.object.getObject(
           {
@@ -64,7 +66,6 @@ export async function getStaticProps() {
           }
         );
 
-        console.log("Download", downloadFileTx);
         const payload = JSON.parse(await downloadFileTx.body.text());
         payload["postId"] = objectInfo.Id;
         console.log("JSON", payload);
@@ -73,10 +74,8 @@ export async function getStaticProps() {
       })
     );
   } catch (err) {
-    console.log("Error download object ", err);
+    console.error("Error download object ", err);
   }
-
-  console.log("Paths", paths);
 
   return { props: { posts: paths } };
 }
